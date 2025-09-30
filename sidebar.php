@@ -58,9 +58,14 @@ if (session_status() === PHP_SESSION_NONE) {
         <li class="nav-item mb-2">
             <a class="nav-link" href="profile.php"><i class="bi bi-person-fill"></i> Profile</a>
         </li>
-        <li class="nav-item mb-2">
-            <a class="nav-link" href="register.php"><i class="bi bi-pencil-square"></i> Register</a>
-        </li>
+
+        <?php if (!isset($_SESSION['user_id'])): ?>
+            <!-- Show register only if NOT logged in -->
+            <li class="nav-item mb-2">
+                <a class="nav-link" href="register.php"><i class="bi bi-pencil-square"></i> Register</a>
+            </li>
+        <?php endif; ?>
+
         <li class="nav-item mb-2">
             <a class="nav-link" href="complaints.php"><i class="bi bi-file-earmark-text-fill"></i> Complaints</a>
         </li>
@@ -68,7 +73,9 @@ if (session_status() === PHP_SESSION_NONE) {
         <?php if (isset($_SESSION['user_id'])): ?>
             <!-- Show logout only if logged in -->
             <li class="nav-item mb-2">
-                <a class="nav-link" href="logout.php"><i class="bi bi-box-arrow-right"></i> Logout</a>
+                <a class="nav-link" href="logout.php" onclick="return confirmLogout()">
+                    <i class="bi bi-box-arrow-right"></i> Logout
+                </a>
             </li>
         <?php else: ?>
             <!-- Show login if not logged in -->
@@ -78,6 +85,12 @@ if (session_status() === PHP_SESSION_NONE) {
         <?php endif; ?>
     </ul>
 </div>
+
+<script>
+function confirmLogout() {
+    return confirm("⚠️ Are you sure you want to logout?");
+}
+</script>
 
 <!-- Include Bootstrap Icons CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">

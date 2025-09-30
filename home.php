@@ -16,6 +16,9 @@ require_once "sidebar.php";
   <style>
     body {
       overflow-x: hidden;
+      background: url('download.jpeg') ;
+      background-size: cover;
+      
     }
     /* Sidebar styles */
     #sidebar {
