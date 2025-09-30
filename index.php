@@ -9,7 +9,7 @@ require_once "sidebar.php";
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  href="home.php"> <title>CampusVoice: Complaint & Feedback Portal</title>
+  href="index.php"> <title>CampusVoice: Complaint & Feedback Portal</title>
 
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -56,7 +56,7 @@ require_once "sidebar.php";
 
   <!-- Sidebar -->
   <div id="sidebar" class="d-flex flex-column p-3">
-    <a href="home.php" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+    <a href="index.php" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
       <span class="fs-4 fw-bold">CampusVoice</span>
     </a>
     <hr>

@@ -50,10 +50,10 @@ if (session_status() === PHP_SESSION_NONE) {
 </style>
 
 <div class="sidebar">
-    <a href="home.php"><h4>CampusVoice</h4></a>
+    <a href="index.php"><h4>CampusVoice</h4></a>
     <ul class="nav flex-column">
         <li class="nav-item mb-2">
-            <a class="nav-link" href="home.php"><i class="bi bi-house-door-fill"></i> Home</a>
+            <a class="nav-link" href="index.php"><i class="bi bi-house-door-fill"></i> Home</a>
         </li>
         <li class="nav-item mb-2">
             <a class="nav-link" href="profile.php"><i class="bi bi-person-fill"></i> Profile</a>
