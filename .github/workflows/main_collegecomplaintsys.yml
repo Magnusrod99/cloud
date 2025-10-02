@@ -9,10 +9,14 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write       # ✅ REQUIRED for Azure OIDC login
+      contents: read        # ✅ Needed for checkout
 
     steps:
       # Checkout repo
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       # Setup PHP
       - name: Setup PHP
@@ -20,15 +24,18 @@ jobs:
         with:
           php-version: '8.2'
 
-      # Install dependencies if composer.json exists
-      - name: Install dependencies if composer.json exists
-        run: |
-          if [ -f "composer.json" ]; then
-            composer validate --no-check-publish
-            composer install --prefer-dist --no-progress
-          fi
+      # Optional: Composer install if composer.json exists
+      - name: Check if composer.json exists
+        id: check_files
+        uses: andstor/file-existence-action@v1
+        with:
+          files: 'composer.json'
 
-      # Log in to Azure using Service Principal
+      - name: Run composer install
+        if: steps.check_files.outputs.files_exists == 'true'
+        run: composer install --prefer-dist --no-progress
+
+      # Login to Azure with federated identity
       - name: Azure Login
         uses: azure/login@v2
         with:
@@ -40,6 +47,6 @@ jobs:
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'collegecomplaintsys'   # Must match EXACT Azure App Service name
+          app-name: 'collegecomplaintsys'
           slot-name: 'Production'
           package: .
