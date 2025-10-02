@@ -14,13 +14,13 @@ jobs:
       # Checkout repo
       - uses: actions/checkout@v4
 
-      # Setup PHP (optional, but good for composer projects)
+      # Setup PHP
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
 
-      # Run composer install if composer.json exists
+      # Install dependencies if composer.json exists
       - name: Install dependencies if composer.json exists
         run: |
           if [ -f "composer.json" ]; then
@@ -28,11 +28,18 @@ jobs:
             composer install --prefer-dist --no-progress
           fi
 
-      # Deploy directly from repo
-      - name: 'Deploy to Azure Web App'
+      # Log in to Azure using Service Principal
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_6372538AC9C444F185872915C7446B3D }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_2B14C0423A974F1BBBBC79A5102E8EBD }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_12F62D6579DD46FB82933EA319D8A624 }}
+
+      # Deploy to Azure Web App
+      - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'collegecomplaintsys'
+          app-name: 'collegecomplaintsys'   # Must match EXACT Azure App Service name
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
