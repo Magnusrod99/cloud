@@ -49,5 +49,6 @@ jobs:
         with:
           app-name: 'collegecomplaintsys'
           slot-name: 'Production'
-          package: ./cloud
+          package: .
+
 
