@@ -1,0 +1,10 @@
+# Tell the server to use index.php as the default
+DirectoryIndex index.php
+
+# Optional: redirect everything through index.php (helpful for routing)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ index.php [L]
+</IfModule>
